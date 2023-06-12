@@ -20,5 +20,5 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Done.'
+      - run: return ${{ needs.foo.result == 'success' && 0 || 1 }}
     
