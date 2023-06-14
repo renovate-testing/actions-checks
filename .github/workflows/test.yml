@@ -21,8 +21,12 @@ jobs:
       - run: test '${{ matrix.result }}' == 'good'
 
   bar:
-    needs: foo
-    if: success() || failure()
+    needs: [foo]
+    if: always()
+    runs-on: ubuntu-latest
+
+  baz:
+    needs: [foo, bar]
     runs-on: ubuntu-latest
     steps:
       - run: return ${{ needs.foo.result == 'success' && 0 || 1 }}
