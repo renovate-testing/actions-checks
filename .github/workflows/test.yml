@@ -16,24 +16,5 @@ on:
 jobs:
   foo:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include: ${{ fromJSON('[]') }}
     steps:
-      - run: sleep 15
-      - run: echo 'foo'
-
-  bar:
-    needs: [foo]
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'bar'
-
-  baz:
-    needs: [bar]
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'baz'
-    
+      - run: echo '${{ github }}' | jq '.'
