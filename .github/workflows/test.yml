@@ -17,6 +17,15 @@ on:
 
 jobs:
   foo:
+    if: false
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ toJSON(github) }}' | jq '.'
+      - run: echo 'hello'
+      
+  bar:
+    if: always()
+    needs: foo
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo '${{ needs.foo }}'
+  
