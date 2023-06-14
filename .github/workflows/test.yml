@@ -12,25 +12,23 @@ on:
 jobs:
   foo:
     runs-on: ubuntu-latest
-    if: false
     strategy:
       matrix:
-        result: ['good', 'good', 'bad']
+        result: ${{ fromJSON('[]') }}
     steps:
       - run: sleep 15
       - run: test '${{ matrix.result }}' == 'good'
 
   bar:
     needs: [foo]
-    if: always()
+    if: success() || failure()
     runs-on: ubuntu-latest
     steps:
-      - if: false
-        run: echo 'hello'
+      - run: echo 'bar'
 
   baz:
-    needs: [foo, bar]
+    needs: [bar]
     runs-on: ubuntu-latest
     steps:
-      - run: return ${{ needs.foo.result == 'success' && 0 || 1 }}
+      - run: echo 'baz'
     
