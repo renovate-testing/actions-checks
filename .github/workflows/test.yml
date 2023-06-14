@@ -17,4 +17,4 @@ jobs:
   foo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ github }}' | jq '.'
+      - run: echo '${{ toJSON(github) }}' | jq '.'
