@@ -24,6 +24,9 @@ jobs:
     needs: [foo]
     if: always()
     runs-on: ubuntu-latest
+    steps:
+      - if: false
+        run: echo 'hello'
 
   baz:
     needs: [foo, bar]
